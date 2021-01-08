@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
+:root {
+    --primary-color: #4a148c;
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.brand_name {
+    font-size: 3rem !important;
+    font-weight: bolder !important;
+}
+
+.brand_name img {
+    width: 3rem;
+}
+
+nav.navbar {
+    background: var(--primary-color) !important;
+   
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.7rem;
+}
+
+.showcase {
+    background: white;
+    box-shadow: var(--shadow-lg);
+    padding: 0rem 3rem !important;
+    border-radius: 7px;
+}
+
+.showcase p {
+    font-size: 1.5rem;
+}
+
+.showcase__right {
+    justify-content: flex-end;
+
+}
+
+.showcase img {
+    width: 90%;
+    object-fit: contain;
+}
+
+.quizzes {
+    display: flex;
+    flex-wrap: wrap
+}
+
+.card {
+    box-shadow: var(--shadow-lg);
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.8rem;
+    width: 210px;
+    text-align: center;
+    border: none;
+}
+
+.card a {
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+    text-decoration: none;
+}
+
+.card p {
+    margin-bottom: 0rem;
+    text-align: left;
+}
+
+.tags {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.tags a {
+    font-size: 0.9rem;
+}
+
+.tags svg {
+    transform: rotate(-270deg);
+    margin-right: 0.2rem;
+}
+
+@media (max-width: 991.98px) {
+    .showcase {
+        min-height: 70vh;
+        padding: 2rem 3rem !important;
+    }
+
+    .showcase__left {
+        text-align: center;
+    }
+
+    .brand_name {
+        font-size: 2.3rem !important;
+    }
+
+    .showcase {
+        margin-bottom: 2rem;
+    }
+}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div>
+        <div class="showcase d-flex align-items-center justify-center border-bottom mb-5 pb-4 pb-md-0 flex-md-row flex-column border">
+            <div class="showcase__left flex-1  text-left mt-md-0 order-1 order-md-0">
+                <h1 class="brand_name mb-2 mb-3">Welcome To Open Q</h1>
+                <p class="text-muted">A collection of Open Quizzes for you to binge for!</p>
+
+                <a href="#" class="btn btn-primary fs-5" role="button">Create A Quiz</a>
+               
+            </div>
+            <div class="showcase__right flex-1 d-md-flex">
+                <img src="{% static 'img/bg.png' %}" alt="showcase image of a rocket flying from book - used to show knowledge">
+            </div>
+        </div>
+
+        <div class="explore">
+            <h4 class="mb-4 fw-bold">Pick One</h4>
+            {% if quizzes %}
+                <div class="quizzes">
+                    {% for quiz in quizzes %}
+                        <div class="quiz card d-flex flex-column justify-content-between border">
+                            <div class="card__top">
+                                <a href="{% url 'quiz:quiz' quiz.slug %}" class="fw-bold d-block mb-2" role="list">
+                                    {{ quiz.title }}
+                                </a>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <small class="text-muted">
+                                        {{ quiz.no_of_questions }} Questions
+                                    </small>
+                                    <small class="text-muted">
+                                        <time>
+                                            {{ quiz.created_at|date:"M j, o" }}
+                                        </time>
+                                    </small>
+                                </div>
+                                <div class="mb-2">
+                                    <p class="">
+                                        {{ quiz.desc|truncatewords:5 }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="tags ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
+                                    <path d="M3 2v4.586l7 7L14.586 9l-7-7H3zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2z"/>
+                                    <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1v5.086z"/>
+                                  </svg>
+
+                                    <a href="#"><small>#pyhton</small></a>
+                                
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-muted">No Quizzes found!</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
