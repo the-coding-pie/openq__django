@@ -11,11 +11,9 @@
         <p class="text-muted">
             {{ quiz.desc }}
         </p>
-        <a href="#quiz" class="btn btn-danger">Start Quiz</a>
     </div>
 
     <!-- questions -->
-    <a name="quiz">
         <div class="questions">
             <form action="" method="POST" name="data">
                 {% csrf_token %}
@@ -66,6 +64,6 @@
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
-    </a>
+
 </div>
 {% endblock content %}
