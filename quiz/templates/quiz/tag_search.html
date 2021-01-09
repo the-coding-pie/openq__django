@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Tag Search</title>
+{% endblock title %}
+
+{% block content %}
+<div class="results">
+    <h4 class="mb-4 font-weight-bold">Tag Results:</h4>
+    {% if quizzes %}
+    <div class="card-deck">
+        {% for quiz in quizzes %}
+
+        <div class="card mr-3 mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'quiz:quiz' quiz.slug %}" class="font-weight-bold d-block mb-2"
+                        role="list">
+                        {{ quiz.title|truncatechars:30 }}
+                    </a>
+                </h5>
+                <p class="card-text">{{ quiz.desc|truncatechars:20 }}</p>
+            </div>
+
+            {% if quiz.tags %}
+                                <div class="tags">
+                                    <small class="text-muted">Tags: </small>
+                                    {% for tag in quiz.tags.all %}
+                                    <a href="{% url 'quiz:tag' tag.slug %}"><small>#{{ tag.slug }}</small></a>
+                                    {% endfor %}
+                                </div>
+                              {% endif %}
+            <div class="card-footer d-flex justify-content-between">
+                <small class="text-muted">
+                    <time>
+                        {{ quiz.created_at|date:"M j, o" }}
+                    </time>
+                </small>
+                <small class="text-muted">
+                    <time>
+                        {{ quiz.no_of_questions }} Questions
+                    </time>
+                </small>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+    {% else %}
+    <p class="text-muted">No Quizzes found!</p>
+    {% endif %}
+</div>
+{% endblock content %}

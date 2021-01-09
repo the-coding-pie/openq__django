@@ -1,16 +1,15 @@
 from django.contrib import admin
-from .models import Quiz, Question, Answer
+from .models import Quiz, Question
 
-class AnswerTabularInline(admin.TabularInline):
-    model = Answer
-    min_num = 2
-    max_num = 4
+class QuestionInline(admin.StackedInline):
+    model = Question
 
-class QuestionAdmin(admin.ModelAdmin):
-    inlines = [AnswerTabularInline]
+class QuizAdmin(admin.ModelAdmin):
+    inlines = [QuestionInline]
+    list_display = ['title', 'public']
+    list_editable = ['public']
 
     class Meta:
-        model = Question
+        model = Quiz
 
-admin.site.register(Quiz)
-admin.site.register(Question, QuestionAdmin)
+admin.site.register(Quiz, QuizAdmin)

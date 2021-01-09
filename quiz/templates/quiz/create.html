@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>Create A Quiz</title>
+{% endblock title %}
+
+{% block content %}
+<form action="" method="POST" id="form-container">
+    {% csrf_token %}
+    <div class="quiz_form quiz_box border">
+        <legend class="mb-3">Quiz</legend>
+        {{ quiz_form|crispy }}
+    </div>
+    {{ question_formset.management_form }}
+    {% for form in question_formset %}
+    <div class="question_form quiz_box border">
+        <legend class="mb-3">Question <span id="q_count">1</span></legend>
+        {{ form|crispy }}
+    </div>
+    {% endfor %}
+    <button class="btn btn-danger" id="add-form" type="button">
+        Add Another Question
+    </button>
+    <button class="btn btn-success" type="submit">Create</button>
+</form>
+{% endblock content %}
+
+{% block script %}
+<script type="text/javascript">
+    let questionForm = document.querySelectorAll('.question_form')
+    let formContainer = document.querySelector('#form-container')
+    let addButton = document.querySelector('#add-form')
+    let totalForms = document.querySelector('#id_form-TOTAL_FORMS')
+    let maxLimit = document.querySelector('#id_form-MAX_NUM_FORMS').getAttribute('value')
+    let formNum = questionForm.length - 1
+
+    // fn to add a new form dynamically
+    addButton.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        if (formNum < maxLimit - 1) {
+            let newForm = questionForm[0].cloneNode(true)
+            let formRegex = RegExp(`form-(\\d){1}-`, 'g')
+
+            formNum++
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+            newForm.childNodes[1].childNodes[1].innerHTML = formNum + 1
+            formContainer.insertBefore(newForm, addButton)
+
+            totalForms.setAttribute('value', `${formNum + 1}`)
+        } 
+
+        if (formNum == maxLimit - 1) {
+            addButton.disabled = true
+        }
+    })
+</script>
+{% endblock script %}

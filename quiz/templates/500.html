@@ -1,0 +1,14 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Error 500</title>
+{% endblock %}
+
+{% block content %}
+  <div class="error_page">
+    <h1>500</h1>
+  <p>Internal Server Error</p>
+  <a href="{% url 'quiz:home' %}" class="btn btn-primary">This Way</a>
+  </div>
+{% endblock %}

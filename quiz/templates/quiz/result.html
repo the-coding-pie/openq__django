@@ -1,5 +1,137 @@
 {% extends 'base.html' %}
 
+{% block title %}
+<title>Your Results</title>
+{% endblock title %}
+
 {% block content %}
-    {{ score }} / {{ total }}
+<div class="result">
+
+    <div class="welcome">
+        <div>
+            <h2 class="h2 font-weight-bold text-center mb-4">
+                {% if percentage >= 20 %}
+                Hooray, You Won! 💐
+                {% else %}
+                Oops, Try Again! 😿
+                {% endif %}
+            </h2>
+
+            <!-- Progress bar 1 -->
+            <div class="progress mx-auto" data-value='{{ percentage }}'>
+                {% if percentage < 20 %}
+                <span class="progress-left">
+                    <span class="progress-bar border-primary-red"></span>
+                </span>
+                <span class="progress-right">
+                    <span class="progress-bar border-primary-red"></span>
+                </span>
+                {% else %}
+                <span class="progress-left">
+                    <span class="progress-bar border-primary"></span>
+                </span>
+                <span class="progress-right">
+                    <span class="progress-bar border-primary"></span>
+                </span>
+                {% endif %}
+                <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                    <h3 class="score">
+                       {{ percentage|floatformat:2 }} <sup>%</sup>
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <p class="mt-4"><strong>Your Score:</strong> {{ score }} / 
+            {{ total }}</p>
+    </div>
+
+    <div class="welcome">
+        <h3 class="mb-4">Correct Answers</h3>
+        {% for question in questions %}
+                <div class="welcome border">
+                    <fieldset id="{{ question.id }}" class="question">
+                        <legend class="font-weight-bold">{{ forloop.counter }}. {{ question.question }}</legend>
+        
+                        <!-- option one -->
+                        <p class="{% if question.answer == 1 %} correct {% endif %}">
+                            
+                            <input type="radio" value="{{ question.option_one }}" name="{{ question.id }}" id="{{question.id}}_{{ question.option_one }}" disabled>
+                            <label for="{{question.id}}_{{ question.option_one}}">
+                                {{ question.option_one }}
+                            </label>
+                        </p>
+        
+                        <!-- option two -->
+                        <p class="{% if question.answer == 2 %} correct {% endif %}">
+                            
+                            <input type="radio" value="{{ question.option_two }}" name="{{ question.id }}" id="{{question.id}}_{{ question.option_two }}" disabled>
+                            <label for="{{question.id}}_{{ question.option_two}}">
+                                {{ question.option_two }}
+                            </label>
+                        </p>
+        
+                        {% if question.option_three %}
+                            <!-- option three -->
+                            <p class="{% if question.answer == 3 %} correct {% endif %}">
+                               
+                                <input type="radio" value="{{ question.option_three }}" name="{{ question.id }}" id="{{question.id}}_{{ question.option_three }}" disabled>
+                                <label for="{{question.id}}_{{ question.option_three}}">
+                                    {{ question.option_three }}
+                                </label>
+                            </p>
+                        {% endif %}
+        
+                        {% if question.option_four %}
+                            <!-- option_four -->
+                            <p class="{% if question.answer == 4 %} correct {% endif %}">
+                               
+                                <input type="radio" value="{{ question.option_four }}" name="{{ question.id }}" id="{{question.id}}_{{ question.option_four }}" disabled>
+                                <label for="{{question.id}}_{{ question.option_four}}">
+                                    {{ question.option_four }}
+                                </label>
+                            </p>
+                        {% endif %}
+                    </fieldset>
+                </div>
+                {% endfor %}
+    </div>
+</div>
 {% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    let radio_btns = document.querySelectorAll('p.correct')
+
+    radio_btns.forEach((btn) => {
+        btn.childNodes[1].checked = true
+    })
+
+    $(function () {
+
+        $(".progress").each(function () {
+
+            var value = $(this).attr('data-value');
+            var left = $(this).find('.progress-left .progress-bar');
+            var right = $(this).find('.progress-right .progress-bar');
+
+            if (value > 0) {
+                if (value <= 50) {
+                    right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
+                } else {
+                    right.css('transform', 'rotate(180deg)')
+                    left.css('transform', 'rotate(' + percentageToDegrees(value - 50) + 'deg)')
+                }
+            }
+
+        })
+
+        function percentageToDegrees(percentage) {
+
+            return percentage / 100 * 360
+
+        }
+
+    });</script>
+
+{% endblock script %}
