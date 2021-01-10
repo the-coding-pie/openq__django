@@ -37,3 +37,5 @@ After the final question, the user will receive his/her score and other informat
 ## QuizCreatePage
 
 Where the user will be able to create a quiz and add as much as question he/she wants with options.
+
+## Now, to setup and run this project, please view the 'commands.md' file.
