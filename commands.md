@@ -64,7 +64,7 @@ Now let's do the following:
  
 ## 10. CollectStatic files
 
-`python manange.py collectstatic`
+`python manage.py collectstatic`
 
 ## 11. Running Django Development Server
 
