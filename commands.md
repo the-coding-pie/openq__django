@@ -61,8 +61,12 @@ Now let's do the following:
   `python manage.py makemigrations quiz`
 
   `python manage.py migrate`
+ 
+## 10. CollectStatic files
 
-## 10. Running Django Development Server
+`python manange.py collectstatic`
+
+## 11. Running Django Development Server
 
   `python manage.py runserver --your_ip_address:8000`
     
